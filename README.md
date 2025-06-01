@@ -57,7 +57,7 @@ project/
 
 1. **Clone the repository:**
    sh
-   git clone [https://github.com/yourusername/legacy-heights-university.git](https://github.com/Laitei40/Legacy-Heights-University.git)
+   git clone [ttps://github.com/Laitei40/Legacy-Heights-University.git](https://github.com/Laitei40/Legacy-Heights-University.git)
    cd legacy-heights-university/project
    
 
