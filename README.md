@@ -57,7 +57,7 @@ project/
 
 1. **Clone the repository:**
    sh
-   git clone https://github.com/yourusername/legacy-heights-university.git
+   git clone [https://github.com/yourusername/legacy-heights-university.git](https://github.com/Laitei40/Legacy-Heights-University.git)
    cd legacy-heights-university/project
    
 
@@ -85,6 +85,7 @@ project/
    
 
 7. **Access the app:**
+   - After being cloned the project run it.
    - Open [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser.
 
 ## Environment Variables
