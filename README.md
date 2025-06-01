@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Legacy Heights University Web Application
 
 A Django-based web application for managing university activities, programs, staff, students, and more.
@@ -104,3 +105,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 - Built with [Django](https://www.djangoproject.com/)
 - Icons and some static assets from [Font Awesome](https://fontawesome.com/)
+=======
+# Legacy-Heights-University
+The Final Project by ICFAI University BCA Final Students Group 3.
+>>>>>>> db221299fb62c5c9dbc66977a567c65d354412c2
