@@ -105,6 +105,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 - Built with [Django](https://www.djangoproject.com/)
 - Icons and some static assets from [Font Awesome](https://fontawesome.com/)
+- UI Design by JAWNCHAW HTANG NAM & CHRISTY RUTH
+- Backend configuring and all by LAITEI
+- 
 =======
 # Legacy-Heights-University
 The Final Project by ICFAI University BCA Final Students Group 3.
