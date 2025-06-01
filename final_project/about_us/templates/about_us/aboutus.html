@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}About Us | Legacy Heights University{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'about_us/aboutus.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="about-container">
+    <h1>About Legacy Heights University</h1>
+    <p>
+        Welcome to <strong>Legacy Heights University</strong>, where tradition meets innovation. For decades, we have been dedicated to nurturing minds, fostering creativity, and empowering students to reach their highest potential. Our diverse programs, world-class faculty, and vibrant campus life create an environment where learning thrives and futures are shaped.
+    </p>
+    <p>
+        At Legacy Heights, we believe education is more than just academics—it's about building character, leadership, and lifelong friendships. Our commitment to excellence ensures that every student receives the support and resources they need to succeed in a rapidly changing world.
+    </p>
+    <p>
+        Join our community and become part of a legacy that inspires greatness. Whether you're pursuing undergraduate, postgraduate, or professional studies, you'll find a welcoming home at Legacy Heights University.
+    </p>
+
+    <div class="about-highlights">
+        <div class="about-highlight">
+            <img src="{% static 'about_us/mission.png' %}" alt="Mission Icon" class="about-icon">
+            <h2>Our Mission</h2>
+            <p>
+                To empower students with knowledge, skills, and values to become innovative leaders and responsible global citizens.
+            </p>
+        </div>
+        <div class="about-highlight">
+            <img src="{% static 'about_us/vision.png' %}" alt="Vision Icon" class="about-icon">
+            <h2>Our Vision</h2>
+            <p>
+                To be a premier institution recognized for academic excellence, cutting-edge research, and a vibrant, inclusive community.
+            </p>
+        </div>
+        <div class="about-highlight">
+            <img src="{% static 'about_us/motto.png' %}" alt="Motto Icon" class="about-icon">
+            <h2>Our Motto</h2>
+            <p>
+                "Inspiring Minds, Shaping Futures"
+            </p>
+        </div>
+    </div>
+
+    <div class="about-contact-btn">
+        <a href="mailto:legancyheightsuniversity@gmail.org">
+            Contact Us
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/jpeg" href="{% static 'core/logo.jpg' %}">
+    <title>{% block title %}Legacy Heights University - webpage{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/style.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/account.css' %}">
+    <link rel="stylesheet" href="{% static 'activities/activity.css' %}">
+    <link rel="stylesheet" href="{% static 'staff/staff.css' %}">
+    <link rel="stylesheet" href="{% static 'programs/program.css' %}">
+    <link rel="stylesheet" href="{% static 'about_us/aboutus.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/registration.css' %}">
+</head>
+<body>
+    {% if messages %}
+<div id="toast-container">
+    {% for message in messages %}
+        <div class="toast toast-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+    <section>
+        <nav>
+            <img src="{% static 'core/logo.jpg' %}" alt="Legacy Heights University logo" title="Legacy Heights University">
+            <p>LHU<br> Legacy Heights University</p>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'programs_index' %}">Program</a></li>
+                    <li><a href="{% url 'activities_index' %}">Activity</a></li>
+                    <li><a href="{% url 'staff_index' %}">Staff</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'accounts_index' %}">My Account</a></li>
+                    {% else %}
+                        <li><a href="{% url 'registration' %}">Registration</a></li>
+                        <li><a href="{% url 'login' %}">Log in</a></li>
+                    {% endif %}
+                    <li>
+                        <button id="theme-toggle" type="button" class="theme-toggle-btn">🌙</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+        <footer class="footer">
+        <div class="footer-content">
+            <img src="{% static 'core/logo.jpg' %}" alt="LHU Logo" class="footer-logo">
+            <span>Legacy Heights University</span>
+            <span class="footer-links">
+                <a href="{% url 'aboutus' %}">About Us</a>
+                <a href="{% url 'terms' %}">Terms</a>
+                <a href="{% url 'privacy' %}">Privacy</a>
+            </span>
+        </div>
+        <span class="footer-copy">&copy; {{ now|date:"Y" }} Legacy Heights University. All rights reserved.</span>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        let dark = false;
+
+        // Restore theme
+        if (localStorage.getItem('theme') === 'dark') {
+            root.setAttribute('data-theme', 'dark');
+            toggle.textContent = '☀️';
+            dark = true;
+        }
+
+        toggle.addEventListener('click', function() {
+            dark = !dark;
+            if (dark) {
+                root.setAttribute('data-theme', 'dark');
+                toggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                root.removeAttribute('data-theme');
+                toggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        document.querySelectorAll('.toast').forEach(function(toast) {
+            toast.style.display = 'none';
+        });
+    }, 3000);
+});
+    </script>
+</body>
+</html>

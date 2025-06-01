@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Our Staff | Legacy Heights University{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <h2 class="staff-title">Our Staff</h2>
+    <div class="staff-gallery">
+        {% for staff in staff_list %}
+        <a href="{% url 'staff_detail' staff.id %}" class="staff-card-link">
+            <div class="staff-card">
+                <div class="staff-photo">
+                    {% if staff.photo %}
+                        <img src="{{ staff.photo.url }}" alt="{{ staff.name }}">
+                    {% else %}
+                        <img src="{% static 'staff/default_staff.jpg' %}" alt="Staff photo">
+                    {% endif %}
+                </div>
+                <div class="staff-info">
+                    <h3 class="staff-name">{{ staff.name }}</h3>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <p>No staff members found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ staff.name }} | Staff Details{% endblock %}
+
+{% block content %}
+<div class="account-container">
+    <div class="staff-detail-card">
+        <div class="staff-photo-large">
+            {% if staff.photo %}
+                <img src="{{ staff.photo.url }}" alt="{{ staff.name }}">
+            {% else %}
+                <img src="{% static 'staff/default_staff.jpg' %}" alt="Staff photo">
+            {% endif %}
+        </div>
+        <div class="staff-info">
+            <h2 class="staff-name">{{ staff.name }}</h2>
+            <p class="staff-role">{{ staff.role }}</p>
+            <p class="staff-department">{{ staff.department }}</p>
+            {% if staff.email %}
+            <p class="staff-contact"><strong>Email:</strong> <a href="mailto:{{ staff.email }}">{{ staff.email }}</a></p>
+            {% endif %}
+            {% if staff.phone %}
+            <p class="staff-contact"><strong>Phone:</strong> {{ staff.phone }}</p>
+            {% endif %}
+            {% if staff.bio %}
+            <p class="staff-bio">{{ staff.bio }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <a href="{% url 'staff_index' %}" class="back-link">Back to Staff List</a>
+</div>
+{% endblock %}

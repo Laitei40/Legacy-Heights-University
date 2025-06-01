@@ -1,0 +1,92 @@
+:root {
+    --background: #fff;
+    --container-bg: #fff;
+    --primary: #4b7bec;
+    --secondary: #3867d6;
+    --card-bg: #f4f7fb;
+    --card-shadow: 0 2px 8px rgba(60,72,88,0.07);
+    --card-shadow-hover: 0 8px 32px rgba(60,72,88,0.13);
+    --title-color: #222f3e;
+    --meta-color: #576574;
+    --type-bg: #e1eaff;
+    --price-color: #20bf6b;
+}
+
+[data-theme="dark"] {
+    --background: #181c24;
+    --container-bg: #232a36;
+    --primary: #7faaff;
+    --secondary: #a3bffa;
+    --card-bg: #232a36;
+    --card-shadow: 0 2px 8px rgba(20,24,32,0.25);
+    --card-shadow-hover: 0 8px 32px rgba(20,24,32,0.35);
+    --title-color: #eaf0fa;
+    --meta-color: #b0b8c9;
+    --type-bg: #2d3750;
+    --price-color: #4be6a9;
+}
+
+body {
+    background: var(--background);
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: var(--container-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(60,72,88,0.10);
+    padding: 32px;
+}
+h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 32px;
+}
+.course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+.course-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.course-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--card-shadow-hover);
+}
+.course-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--title-color);
+    margin-bottom: 8px;
+}
+.course-type {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    background: var(--type-bg);
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+.course-meta {
+    color: var(--meta-color);
+    margin-bottom: 6px;
+}
+.course-price {
+    color: var(--price-color);
+    font-weight: 500;
+}
+
+#no-courses-message {
+    text-align: center;
+    color: var(--meta-color);
+    font-size: 1.2em;
+    margin-top: 40px;
+    font-style: italic;
+}

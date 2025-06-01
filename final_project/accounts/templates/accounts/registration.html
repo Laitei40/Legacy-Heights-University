@@ -1,0 +1,418 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if messages %}
+<div id="toast-container">
+    {% for message in messages %}
+        <div class="toast toast-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="account-container">
+    <h1>Register or Apply</h1>
+    <div class="account-sections">
+        <!-- Registration Multi-Step Section -->
+        <div class="account-card" id="register-section">
+            <!-- Step 1: Select Role -->
+            <div id="step-role">
+                <h2>Register or Apply As</h2>
+                <button class="role-btn" data-role="student">🧑‍🎓 Student</button>
+                <button class="role-btn" data-role="staff">👨‍🏫 Staff</button>
+            </div>
+            <!-- Step 2: Select Category -->
+            <div id="step-category" style="display:none;">
+                <h2>Are you Domestic or International?</h2>
+                <button class="category-btn" data-category="domestic">Domestic</button>
+                <button class="category-btn" data-category="international">International</button>
+            </div>
+            <!-- Step 3: Student Registration Form -->
+            <div id="student-form-section" style="display:none;">
+                <h2>Student Registration</h2>
+                <form method="post" action="{% url 'signup' %}" class="account-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="category" id="student-category">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="dob" id="dob" placeholder="Date of Birth" required>
+                        <small class="input-hint">Select your date of birth (YYYY-MM-DD)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" required>
+                            <option value="">Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select name="country" id="student-country" required>
+                            <option value="">Select Country</option>
+                            {% for country in countries %}
+                                <option value="{{ country.id }}">{{ country.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select name="state" id="student-state" required>
+                            <option value="">Select State</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <input type="text" name="nationality" id="nationality" placeholder="Nationality" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Recent Passport-size Photograph (JPG/PNG) <span style="color:red">*</span></label>
+                        <input type="file" id="photo" name="photo" accept="image/*" required>
+                        <small class="input-hint">Upload a recent passport-size photograph (JPG/PNG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Phone or Email <span style="color:red">*</span></label>
+                        <input type="text" id="contact" name="contact" placeholder="Phone or Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Permanent Address <span style="color:red">*</span></label>
+                        <input type="text" id="address" name="address" placeholder="Permanent Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="local_address">Local/Hostel Address</label>
+                        <input type="text" id="local_address" name="local_address" placeholder="Local/Hostel Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="gov_id">Government-issued ID (PDF/JPG) <span style="color:red">*</span></label>
+                        <input type="file" id="gov_id" name="gov_id" required>
+                        <small class="input-hint">Upload Aadhaar Card, Passport, or other government-issued ID (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group" id="passport-visa-group" style="display:none;">
+                        <label for="student-passport-visa">Passport and Student Visa (for international students)</label>
+                        <input type="file" name="passport_visa" id="student-passport-visa">
+                        <small class="input-hint">Upload Passport and Student Visa (for international students)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="birth_certificate">Birth Certificate (PDF/JPG)</label>
+                        <input type="file" id="birth_certificate" name="birth_certificate">
+                        <small class="input-hint">Upload Birth Certificate (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality_proof">Proof of Nationality (PDF/JPG)</label>
+                        <input type="file" id="nationality_proof" name="nationality_proof">
+                        <small class="input-hint">Upload Proof of Nationality (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="marksheet_10">Class 10 Mark Sheet (PDF/JPG) <span style="color:red">*</span></label>
+                        <input type="file" id="marksheet_10" name="marksheet_10" required>
+                        <small class="input-hint">Upload Class 10 Mark Sheet (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="marksheet_12">Class 12 Mark Sheet (PDF/JPG) <span style="color:red">*</span></label>
+                        <input type="file" id="marksheet_12" name="marksheet_12" required>
+                        <small class="input-hint">Upload Class 12 Mark Sheet (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="grad_marksheet">Graduation Mark Sheet (for PG admissions)</label>
+                        <input type="file" id="grad_marksheet" name="grad_marksheet">
+                        <small class="input-hint">Upload Graduation Mark Sheet (for PG admissions)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="tc">Transfer Certificate (PDF/JPG)</label>
+                        <input type="file" id="tc" name="tc">
+                        <small class="input-hint">Upload Transfer Certificate (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="migration">Migration Certificate (if applicable)</label>
+                        <input type="file" id="migration" name="migration">
+                        <small class="input-hint">Upload Migration Certificate (if applicable)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="abc_id">ABC ID</label>
+                        <input type="text" id="abc_id" name="abc_id" placeholder="ABC ID">
+                    </div>
+                    <div class="form-group" id="language-proof-group" style="display:none;">
+                        <label for="student-language-proof">Language Proficiency Certificate (for international students)</label>
+                        <input type="file" name="language_proof" id="student-language-proof">
+                        <small class="input-hint">Upload IELTS/TOEFL or other language proficiency certificate (for international students)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="caste_certificate">Caste Certificate (if applicable)</label>
+                        <input type="file" id="caste_certificate" name="caste_certificate">
+                        <small class="input-hint">Upload Caste Certificate (if applicable)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="domicile">Domicile Certificate (if applicable)</label>
+                        <input type="file" id="domicile" name="domicile">
+                        <small class="input-hint">Upload Domicile Certificate (if applicable)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="income_certificate">Income Certificate (if applicable)</label>
+                        <input type="file" id="income_certificate" name="income_certificate">
+                        <small class="input-hint">Upload Income Certificate (if applicable)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="disability_certificate">Disability Certificate (if applicable)</label>
+                        <input type="file" id="disability_certificate" name="disability_certificate">
+                        <small class="input-hint">Upload Disability Certificate (if applicable)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="entrance_score">Entrance Exam Score</label>
+                        <input type="text" id="entrance_score" name="entrance_score" placeholder="Entrance Exam Score">
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Program/Major/Course</label>
+                        <select name="course" id="course" required>
+                            <option value="">Select Program/Major/Course</option>
+                            {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="admission_type">Admission Type</label>
+                        <select name="admission_type" id="admission_type" required>
+                            <option value="">Admission Type</option>
+                            <option>Regular</option>
+                            <option>Distance</option>
+                            <option>International</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="portal_login">Portal Login Details</label>
+                        <input type="text" name="portal_login" id="portal_login" placeholder="Portal Login Details">
+                        <small class="input-hint">Enter your university portal login details (if assigned)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="fee_receipt">Fee Payment Receipt</label>
+                        <input type="file" name="fee_receipt" id="fee_receipt" title="Upload Fee Payment Receipt (PDF/JPG)">
+                        <small class="input-hint">Upload your fee payment receipt (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="medical_fitness">Medical Fitness Certificate</label>
+                        <input type="file" name="medical_fitness" id="medical_fitness" title="Upload Medical Fitness Certificate (PDF/JPG)">
+                        <small class="input-hint">Upload your medical fitness certificate (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="vaccination">Vaccination Certificate</label>
+                        <input type="file" name="vaccination" id="vaccination" title="Upload Vaccination Certificate (PDF/JPG)">
+                        <small class="input-hint">Upload your vaccination certificate (PDF/JPG)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="parent_details">Parent/Guardian Details</label>
+                        <input type="text" name="parent_details" id="parent_details" placeholder="Parent/Guardian Details">
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="requirements">
+                    <h3>Required Documents</h3>
+                    <ul>
+                        <li>Class 10 & 12 Mark Sheets</li>
+                        <li>Transfer Certificate (TC)</li>
+                        <li>Migration Certificate</li>
+                        <li>ABC ID (domestic)</li>
+                        <li>Language Proficiency (international)</li>
+                        <li>Govt ID, Passport/Visa (international)</li>
+                        <li>Caste/Domicile/Income/Disability Certificate (if applicable)</li>
+                        <li>Medical Fitness, Vaccination Certificate</li>
+                        <li>Fee Receipt, Parent/Guardian Details</li>
+                    </ul>
+                </div>
+            </div>
+                    <div id="staff-form-section" style="display:none;">
+                        <h2>Staff Registration / Job Application</h2>
+                        <form method="post" action="{% url 'staff_signup' %}" class="account-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="category" id="staff-category">
+                            <div class="form-group">
+                                <label for="staff_name">Full Name</label>
+                                <input type="text" name="name" id="staff_name" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_id">Staff ID (if assigned)</label>
+                                <input type="text" name="staff_id" id="staff_id" placeholder="Staff ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_email">Email</label>
+                                <input type="email" name="email" id="staff_email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_contact">Contact Number</label>
+                                <input type="text" name="contact" id="staff_contact" placeholder="Contact Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_address">Address</label>
+                                <input type="text" name="address" id="staff_address" placeholder="Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_country">Country</label>
+                                <select name="country" id="staff-country" required>
+                                    <option value="">Select Country</option>
+                                    {% for country in countries %}
+                                        <option value="{{ country.id }}">{{ country.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_state">State</label>
+                                <select name="state" id="staff-state" required>
+                                    <option value="">Select State</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_qualification">Highest Qualification</label>
+                                <input type="text" name="qualification" id="staff_qualification" placeholder="Highest Qualification" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_experience">Total Experience (years)</label>
+                                <input type="number" name="experience" id="staff_experience" placeholder="Experience in years" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_cv">CV/Resume (PDF)</label>
+                                <input type="file" name="cv" id="staff_cv" accept=".pdf" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_ug_pg">UG & PG Degree Certificates (PDF/JPG)</label>
+                                <input type="file" name="ug_pg_certificates" id="staff_ug_pg" multiple required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_phd">Ph.D., NET/SET, Equivalency (if applicable)</label>
+                                <input type="file" name="phd_net_set" id="staff_phd" multiple>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_experience_letters">Experience Letters, Last Employment Proof</label>
+                                <input type="file" name="experience_letters" id="staff_experience_letters" multiple>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_gov_id">Govt ID, PAN/SSN, Passport/Visa (international)</label>
+                                <input type="file" name="gov_id" id="staff_gov_id" multiple required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_bank_details">Bank Details</label>
+                                <input type="file" name="bank_details" id="staff_bank_details" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_police_clearance">Police Clearance Certificate</label>
+                                <input type="file" name="police_clearance" id="staff_police_clearance">
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_medical_fitness">Medical Fitness Certificate</label>
+                                <input type="file" name="medical_fitness" id="staff_medical_fitness">
+                            </div>
+                            <div class="form-group">
+                                <label for="staff_joining_letter">Joining Letter/Appointment Order</label>
+                                <input type="file" name="joining_letter" id="staff_joining_letter">
+                            </div>
+                            <button type="submit">Apply</button>
+                        </form>
+                        <div class="requirements">
+                            <h3>Required Documents</h3>
+                            <ul>
+                                <li>UG & PG Degree Certificates</li>
+                                <li>Ph.D., NET/SET, Equivalency (if applicable)</li>
+                                <li>Experience Letters, Last Employment Proof, CV</li>
+                                <li>Govt ID, PAN/SSN, Passport/Visa (international)</li>
+                                <li>Bank Details, Police Clearance, Medical Fitness</li>
+                                <li>Joining Letter/Appointment Order</li>
+                            </ul>
+                        </div>
+                    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Only show registration section, no login
+    document.getElementById('register-section').style.display = 'block';
+    if (document.getElementById('login-section')) {
+        document.getElementById('login-section').style.display = 'none';
+    }
+    if (document.getElementById('show-register')) {
+        document.getElementById('show-register').classList.add('active');
+    }
+    if (document.getElementById('show-login')) {
+        document.getElementById('show-login').classList.remove('active');
+    }
+
+    // Add event listeners only if elements exist
+    const studentCountry = document.getElementById('student-country');
+    if (studentCountry) {
+        studentCountry.addEventListener('change', function() {
+            const countryId = this.value;
+            fetch(`/accounts/ajax/get_states/?country_id=${countryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const stateSelect = document.getElementById('student-state');
+                    stateSelect.innerHTML = '<option value="">Select State</option>';
+                    data.states.forEach(state => {
+                        stateSelect.innerHTML += `<option value="${state.id}">${state.name}</option>`;
+                    });
+                });
+        });
+    }
+
+    const staffCountry = document.getElementById('staff-country');
+    if (staffCountry) {
+        staffCountry.addEventListener('change', function() {
+            const countryId = this.value;
+            fetch(`/accounts/ajax/get_states/?country_id=${countryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const stateSelect = document.getElementById('staff-state');
+                    stateSelect.innerHTML = '<option value="">Select State</option>';
+                    data.states.forEach(state => {
+                        stateSelect.innerHTML += `<option value="${state.id}">${state.name}</option>`;
+                    });
+                });
+        });
+    }
+
+    // Multi-step registration
+    const stepRole = document.getElementById('step-role');
+    const stepCategory = document.getElementById('step-category');
+    const studentFormSection = document.getElementById('student-form-section');
+    const staffFormSection = document.getElementById('staff-form-section');
+    let selectedRole = null;
+    let selectedCategory = null;
+
+    document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            selectedRole = btn.getAttribute('data-role');
+            stepRole.style.display = 'none';
+            stepCategory.style.display = 'block';
+        });
+    });
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            selectedCategory = btn.getAttribute('data-category');
+            stepCategory.style.display = 'none';
+            if (selectedRole === 'student') {
+                studentFormSection.style.display = 'block';
+                staffFormSection.style.display = 'none';
+                document.getElementById('student-category').value = selectedCategory;
+                // Show/hide international fields
+                document.getElementById('student-passport-visa').style.display = selectedCategory === 'international' ? 'block' : 'none';
+                document.getElementById('student-language-proof').style.display = selectedCategory === 'international' ? 'block' : 'none';
+            } else {
+                staffFormSection.style.display = 'block';
+                studentFormSection.style.display = 'none';
+                document.getElementById('staff-category').value = selectedCategory;
+                if (document.getElementById('staff-passport-visa')) {
+                    document.getElementById('staff-passport-visa').style.display = selectedCategory === 'international' ? 'block' : 'none';
+                }
+            }
+        });
+    });
+
+    // Toast auto-hide
+    setTimeout(function() {
+        const toast = document.getElementById('toast-container');
+        if (toast) toast.style.display = 'none';
+    }, 3000);
+});
+</script>
+{% endblock %}

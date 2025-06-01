@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Django database
+final_project/db.sqlite3
+
+# Django static and media files
+final_project/staticfiles/
+final_project/*/migrations/__pycache__/
+final_project/*/migrations/*.pyc
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

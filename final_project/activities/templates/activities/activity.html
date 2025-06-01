@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Activity | Legacy Heights University{% endblock %}
+
+{% block content %}
+<div class="account-container">
+     <h2 class="activities-title">Activities</h2>
+        <p class="activities-desc">
+            Explore our vibrant campus life and student activities!
+        </p>
+    </div>
+    <div class="activity-gallery">
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/a1.jpg' %}" alt="Group discussion">
+            </div>
+            <div class="desc">Group discussion</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/2.jpeg' %}" alt="Maintain natural environment">
+            </div>
+            <div class="desc">Maintain natural environment</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/a3.jpeg' %}" alt="Group project discuss">
+            </div>
+            <div class="desc">Group project discuss</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/a4.jpeg' %}" alt="Group practical">
+            </div>
+            <div class="desc">Group practical</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/a5.png' %}" alt="Sports event">
+            </div>
+            <div class="desc">Sports event</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/1.jpg' %}" alt="Cultural fest">
+            </div>
+            <div class="desc">Cultural fest</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/a8.jpg' %}" alt="Sports competition">
+            </div>
+            <div class="desc">Sports competition</div>
+        </div>
+        <div class="gallery-card">
+            <div class="gallery-img">
+                <img src="{% static 'activities/a7.jpg' %}" alt="planting">
+            </div>
+            <div class="desc">Tree planting</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

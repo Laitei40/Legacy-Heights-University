@@ -1,0 +1,199 @@
+/* Container and Card */
+.account-container {
+    max-width: 600px;
+    margin: 40px auto 0 auto;
+    background: var(--foreground);
+    border-radius: 16px;
+    box-shadow: 0 6px 32px rgba(60,72,88,0.13);
+    padding: 36px 32px 32px 32px;
+    position: relative;
+}
+
+.account-container h1 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.account-card {
+    background: rgba(78,84,200,0.04);
+    border-radius: 12px;
+    padding: 28px 18px 18px 18px;
+    box-shadow: 0 2px 12px rgba(60,72,88,0.07);
+    margin-bottom: 24px;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.toggle-btn {
+    background: var(--primary);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 28px;
+    border-radius: 22px;
+    margin: 0 8px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(60,72,88,0.08);
+}
+
+.toggle-btn.active,
+.toggle-btn:hover {
+    background: var(--foreground);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.account-form input[type="text"],
+.account-form input[type="date"],
+.account-form input[type="password"],
+.account-form input[type="email"],
+.account-form select {
+    padding: 10px 14px;
+    border: 1.5px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 1em;
+    background: var(--input-bg);
+    color: var(--text);
+    transition: border 0.2s, background 0.2s, color 0.2s;
+}
+
+.account-form input[type="text"]:focus,
+.account-form input[type="date"]:focus,
+.account-form input[type="password"]:focus,
+.account-form input[type="email"]:focus,
+.account-form select:focus {
+    border: 1.5px solid var(--primary);
+    outline: none;
+    background: var(--foreground);
+    color: var(--text);
+}
+
+.account-form input[type="file"] {
+    border: none;
+    background: none;
+    font-size: 1em;
+    margin-top: 4px;
+    color: var(--text);
+}
+
+.account-form button[type="submit"] {
+    background: var(--primary);
+    color: var(--text-light);
+    border: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(60,72,88,0.10);
+    transition: background 0.2s, color 0.2s;
+}
+
+.account-form button[type="submit"]:hover {
+    background: var(--primary-light);
+    color: var(--text-light);
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--primary);
+    margin-bottom: 2px;
+    display: block;
+}
+
+.input-hint {
+    color: #888;
+    font-size: 0.95em;
+    margin-top: 2px;
+    display: block;
+}
+
+.requirements {
+    background: var(--background);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 18px;
+    box-shadow: 0 1px 4px rgba(60,72,88,0.05);
+}
+
+.requirements h3 {
+    color: var(--primary);
+    font-size: 1.08em;
+    margin-bottom: 8px;
+}
+
+.requirements ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text);
+    font-size: 0.98em;
+}
+
+#toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+}
+
+.toast {
+    background: var(--foreground);
+    color: var(--text);
+    border-left: 6px solid var(--primary);
+    padding: 12px 22px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 12px rgba(60,72,88,0.13);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.toast-success { border-left-color: #27ae60; }
+.toast-error { border-left-color: #eb2f06; }
+
+.role-btn, .category-btn {
+    background: var(--background);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 22px;
+    padding: 10px 28px;
+    font-size: 1.08em;
+    font-weight: 500;
+    margin: 0 8px 10px 0;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.role-btn:hover, .category-btn:hover,
+.role-btn.active, .category-btn.active {
+    background: var(--primary);
+    color: var(--text-light);
+}
+
+@media (max-width: 700px) {
+    .account-container {
+        padding: 16px 4vw 24px 4vw;
+    }
+    .account-card {
+        padding: 14px 4vw 10px 4vw;
+    }
+    .toggle-btn, .role-btn, .category-btn {
+        padding: 8px 12px;
+        font-size: 1em;
+    }
+}

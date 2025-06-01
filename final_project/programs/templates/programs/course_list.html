@@ -1,0 +1,26 @@
+{# templates/programs/course_list.html #}
+{% for course in courses %}
+<div class="course-card">
+    <div class="course-title">{{ course.name }}</div>
+    <div class="course-type">
+        {{ course.get_course_type_display }}
+    </div>
+    <div class="course-meta">
+        <strong>Department:</strong> {{ course.department.name }}
+    </div>
+    <div class="course-meta">
+        <strong>Semesters:</strong> {{ course.number_of_semesters }}
+    </div>
+    <div class="course-meta">
+        <strong>Years to Complete:</strong> {{ course.years_to_complete }}
+    </div>
+    <div class="course-price">
+        <strong>Price/Semester:</strong> ₹{{ course.price_per_semester }}
+    </div>
+    <div class="course-price">
+        <strong>Total Price:</strong> ₹{{ course.total_price|floatformat:2 }}
+    </div>
+</div>
+{% empty %}
+<p id ="no-courses-message">No courses available.</p>
+{% endfor %}

@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Programs | Legacy Heights University{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'programs/program.css' %}">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('search-input');
+    const courseList = document.getElementById('course-list');
+    const form = document.getElementById('search-form');
+    let debounceTimer = null;
+    const DEBOUNCE_DELAY = 500; // 500ms delay
+
+    // Debounce function
+    function debounce(func, delay) {
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+
+    const performSearch = async (query) => {
+        try {
+            const response = await fetch(`${window.location.pathname}?q=${encodeURIComponent(query)}`, {
+                headers: {'X-Requested-With': 'XMLHttpRequest'}
+            });
+            console.log('AJAX response:', response);
+            const data = await response.json();
+            console.log('AJAX data:', data);
+            courseList.innerHTML = data.html;
+        } catch (error) {
+            console.error('Search error:', error);
+            courseList.innerHTML = '<p>Error loading courses.</p>';
+        }
+    };
+
+    const debouncedSearch = debounce((query) => performSearch(query), DEBOUNCE_DELAY);
+
+    input.addEventListener('input', function(e) {
+        const query = e.target.value.trim();
+        debouncedSearch(query);
+    });
+
+    // Prevent form submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const query = input.value.trim();
+        performSearch(query); // Immediate search on form submission
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Our Programs</h1>
+    <form id="search-form" method="get" style="margin-bottom: 24px; text-align: center;">
+        <input id="search-input" type="text" name="q" placeholder="Search program name..." value="{{ request.GET.q|default_if_none:'' }}" style="padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; width: 60%; max-width: 320px;">
+        <button type="submit" style="padding: 8px 18px; border-radius: 6px; background: var(--primary, #4b7bec); color: #fff; border: none; font-weight: 500; margin-left: 8px;">Search</button>
+    </form>
+    <div id="course-list" class="course-list">
+        {% include "programs/course_list.html" %}
+    </div>
+</div>
+{% endblock %}

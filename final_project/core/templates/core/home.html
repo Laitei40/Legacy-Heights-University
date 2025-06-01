@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="header">
+    <p>Start Your Story Here..</p>
+    <a href="{% url 'registration' %}">
+        <button>Register Now..</button>
+    </a>
+</section>
+{% endblock %}
