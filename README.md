@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Legacy Heights University Web Application
 
 A Django-based web application for managing university activities, programs, staff, students, and more.
